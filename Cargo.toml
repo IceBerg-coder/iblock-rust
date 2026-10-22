@@ -9,6 +9,8 @@ resolver = "2"
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Raymond Hill", "iBlock Contributors"]
+authors = ["IceBerg-coder", "iBlock Contributors"]
 license = "GPL-3.0-or-later"
-repository = "https://github.com/IceBerg-coder/iBlock"
+description = "High-performance Rust & WebAssembly content filtering engine and Manifest V3 adblocker"
+repository = "https://github.com/IceBerg-coder/iblock-rust"
+homepage = "https://github.com/IceBerg-coder/iblock-rust"
