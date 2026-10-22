@@ -1,6 +1,6 @@
 # 🛡️ iBlock — High-Performance Rust Content Blocker
 
-[![CI](https://github.com/IceBerg-coder/iBlock/actions/workflows/ci.yml/badge.svg)](https://github.com/IceBerg-coder/iBlock/actions/workflows/ci.yml)
+[![CI](https://github.com/IceBerg-coder/iblock-rust/actions/workflows/ci.yml/badge.svg)](https://github.com/IceBerg-coder/iblock-rust/actions/workflows/ci.yml)
 [![Rust](https://img.shields.io/badge/rust-1.80%2B-orange.svg)](https://www.rust-lang.org)
 [![WebAssembly](https://img.shields.io/badge/wasm-bindgen-blue.svg)](https://webassembly.org/)
 [![Manifest V3](https://img.shields.io/badge/manifest-v3-emerald.svg)](https://developer.chrome.com/docs/extensions/mv3/)
