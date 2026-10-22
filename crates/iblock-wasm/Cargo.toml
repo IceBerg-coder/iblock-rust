@@ -1,0 +1,15 @@
+[package]
+name = "iblock-wasm"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "WebAssembly bindings for iBlock static network filtering engine"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+iblock-core = { path = "../iblock-core" }
+wasm-bindgen = "0.2"

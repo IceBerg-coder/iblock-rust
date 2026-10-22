@@ -1,0 +1,14 @@
+[workspace]
+members = [
+    "crates/iblock-core",
+    "crates/iblock-cli",
+    "crates/iblock-wasm",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Raymond Hill", "iBlock Contributors"]
+license = "GPL-3.0-or-later"
+repository = "https://github.com/IceBerg-coder/iBlock"

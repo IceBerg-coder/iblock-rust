@@ -1,0 +1,184 @@
+header {
+    background-color: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root.light header {
+    background-color: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+nav {
+    border: 0;
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 0 8px;
+}
+
+nav .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6em 1.2em 0.6em 0.4em;
+    user-select: none;
+}
+
+nav .logo img {
+    width: 26px;
+    height: 26px;
+    filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.45));
+}
+
+nav .logo .logo-text {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+nav .logo .logo-subtag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 2px 7px;
+    border-radius: 9999px;
+}
+
+nav > .tabButton {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    color: #94a3b8;
+    fill: #94a3b8;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 1em 1.2em calc(1em - 3px);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav > .tabButton:focus {
+    outline: 0;
+}
+
+nav > .tabButton:hover {
+    color: #f1f5f9;
+    background-color: rgba(56, 189, 248, 0.06);
+    border-bottom-color: rgba(56, 189, 248, 0.4);
+}
+
+:root.light nav > .tabButton {
+    color: #64748b;
+}
+
+:root.light nav > .tabButton:hover {
+    color: #0f172a;
+}
+
+body[data-pane="settings"] #dashboard-nav .tabButton[data-pane="settings"],
+body[data-pane="rulesets"] #dashboard-nav .tabButton[data-pane="rulesets"],
+body[data-pane="filters"] #dashboard-nav .tabButton[data-pane="filters"],
+body[data-pane="develop"] #dashboard-nav .tabButton[data-pane="develop"],
+body[data-pane="about"] #dashboard-nav .tabButton[data-pane="about"] {
+    color: #38bdf8;
+    fill: #38bdf8;
+    border-bottom: 3px solid #38bdf8;
+    font-weight: 600;
+    background-color: rgba(56, 189, 248, 0.08);
+}
+
+body:not([data-develop="true"]) #dashboard-nav .tabButton[data-pane="develop"] {
+    display: none;
+}
+
+body:not([data-pane="rulesets"]) header [data-pane-related="rulesets"] {
+    display: none;
+}
+
+header [data-pane-related="rulesets"] {
+    padding: 10px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#findInLists {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 9999px;
+    padding: 7px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+:root.light #findInLists {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+#findInLists:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+body > section {
+    box-sizing: border-box;
+    display: none;
+    padding: 1.5rem var(--default-gap-xxsmall);
+    padding-bottom: 3rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.7; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body [data-pane-related] {
+    padding: 0 var(--default-gap-xxsmall);
+}
+
+body[data-pane="settings"]:not(.busy) > section[data-pane="settings"],
+body[data-pane="rulesets"]:not(.busy) > section[data-pane="rulesets"],
+body[data-pane="filters"]:not(.busy) > section[data-pane="filters"],
+body[data-pane="develop"]:not(.busy) > section[data-pane="develop"],
+body[data-pane="about"]:not(.busy) > section[data-pane="about"],
+body.busy[data-pane] > section[data-pane="busy"] {
+    display: block;
+}
+
+/* high dpi devices */
+:root.hidpi .tabButton {
+    letter-spacing: 0.3px;
+}
+
+/* touch-screen devices */
+:root.mobile nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+:root.mobile nav .logo {
+    display: none;
+}

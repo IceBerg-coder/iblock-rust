@@ -1,0 +1,11 @@
+[package]
+name = "iblock-cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Command-line tool for iBlock content filtering benchmarks and audits"
+
+[dependencies]
+iblock-core = { path = "../iblock-core" }

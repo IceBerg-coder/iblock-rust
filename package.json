@@ -1,0 +1,28 @@
+{
+  "name": "iblock",
+  "version": "1.0.0",
+  "description": "High-performance Rust-powered content filtering engine and Manifest V3 extension",
+  "type": "module",
+  "main": "dist/wasm/iblock_wasm.js",
+  "types": "dist/wasm/iblock_wasm.d.ts",
+  "scripts": {
+    "build": "cargo build --workspace --release",
+    "build:wasm": "cargo build -p iblock-wasm --target wasm32-unknown-unknown --release && wasm-bindgen target/wasm32-unknown-unknown/release/iblock_wasm.wasm --out-dir dist/wasm --target web && cp dist/wasm/* extension/wasm/",
+    "build:extension": "mkdir -p dist && cd extension && zip -qr ../dist/iblock-extension.zip . && cd ..",
+    "test": "cargo test --workspace && node tests/test-wasm.mjs",
+    "bench": "cargo bench -p iblock-core",
+    "lint": "cargo clippy --workspace --all-targets -- -D warnings",
+    "fmt": "cargo fmt --all"
+  },
+  "keywords": [
+    "adblocker",
+    "content-blocker",
+    "rust",
+    "webassembly",
+    "patricia-trie",
+    "manifest-v3",
+    "ublock"
+  ],
+  "author": "IceBerg-coder",
+  "license": "GPL-3.0-or-later"
+}

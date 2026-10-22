@@ -1,0 +1,124 @@
+body {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body > * {
+    width: min(760px, 94%);
+}
+
+h2, h3 {
+    margin: 1.2em 0 0.8em 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px;
+    color: #f1f5f9;
+}
+
+:root.light h3 {
+    color: #0f172a;
+}
+
+a {
+    color: #38bdf8;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: #06b6d4;
+    text-decoration: underline;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+button {
+    border-radius: 8px !important;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button.preferred {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+}
+
+.fa-icon.info {
+    color: var(--info0-ink);
+    fill: var(--info0-ink);
+    font-size: 115%;
+}
+
+.fa-icon.info:hover {
+    transform: scale(1.2);
+}
+
+.fa-icon.info.important {
+    color: var(--info2-ink);
+    fill: var(--info2-ink);
+}
+
+.fa-icon.info.very-important {
+    color: var(--info3-ink);
+    fill: var(--info3-ink);
+}
+
+input[type="number"] {
+    width: 5em;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+input[type="text"], input[type="url"], input[type="search"] {
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+@media (max-height: 640px), (max-height: 800px) and (max-width: 480px) {
+    .body > p,
+    .body > ul {
+        margin: 0.5em 0;
+    }
+    .vverbose {
+        display: none !important;
+    }
+}
+
+:root.mobile {
+    overflow: auto;
+}
+
+:root.mobile body {
+    min-height: 600px;
+}

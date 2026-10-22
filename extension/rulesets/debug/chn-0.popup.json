@@ -1,0 +1,682 @@
+[
+  {
+    "condition": {
+      "urlFilter": "/tt/ttfc.html?sc="
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4952
+  },
+  {
+    "condition": {
+      "urlFilter": "/ts/ttfc.html?sc="
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4953
+  },
+  {
+    "condition": {
+      "urlFilter": ".com/stat-qq.html?*&click_url_final="
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4954
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "tw.jav321.com"
+      ],
+      "initiatorDomains": [
+        "ucptt.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4955
+  },
+  {
+    "condition": {
+      "regexFilter": "^https:\\/\\/[a-z0-9]+\\.[a-z0-9]+\\.[a-z]{2,3}:\\d{1,6}\\/[a-z]{1,3}\\/\\d+\\?is_not="
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4956
+  },
+  {
+    "condition": {
+      "urlFilter": "/htmm/20*.php"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4957
+  },
+  {
+    "condition": {
+      "urlFilter": "/portalwlanad/pages/"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4958
+  },
+  {
+    "condition": {
+      "urlFilter": ":701/gd_xueersi/"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4959
+  },
+  {
+    "condition": {
+      "urlFilter": "||76fengyun.com/vip.php"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4960
+  },
+  {
+    "condition": {
+      "urlFilter": "||baidu.com/adrc."
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4961
+  },
+  {
+    "condition": {
+      "urlFilter": "||baidu.com/baidu.php?url="
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4962
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "click.taobao.com"
+      ],
+      "initiatorDomains": [
+        "steamcn.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4963
+  },
+  {
+    "condition": {
+      "urlFilter": "||ctfile.com/popjump.php?"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4964
+  },
+  {
+    "condition": {
+      "urlFilter": "||duoyi.com/welcome/"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4965
+  },
+  {
+    "condition": {
+      "urlFilter": "||flash.cn/success/"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4966
+  },
+  {
+    "condition": {
+      "urlFilter": "||gd.189.cn*/push/"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4967
+  },
+  {
+    "condition": {
+      "urlFilter": "||greenet.cn^*_popu_"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4968
+  },
+  {
+    "condition": {
+      "urlFilter": "||hinet.net/product/promotion/"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4969
+  },
+  {
+    "condition": {
+      "urlFilter": "||huancaicp.com/?pid="
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4970
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "img999.com"
+      ],
+      "initiatorDomains": [
+        "tt1069.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4971
+  },
+  {
+    "condition": {
+      "urlFilter": "||iqiyi.com/track"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4972
+  },
+  {
+    "condition": {
+      "urlFilter": "||jjwxc.net/jjad*.html"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4973
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "kfc.com.cn"
+      ],
+      "initiatorDomains": [
+        "iqiyi.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4974
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "puma.com"
+      ],
+      "initiatorDomains": [
+        "hupu.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4975
+  },
+  {
+    "condition": {
+      "urlFilter": "||sohu.com/i/?pvid="
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4976
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "taobao.com"
+      ],
+      "initiatorDomains": [
+        "52movieba.com",
+        "btee.net",
+        "ck180.net",
+        "friok.com",
+        "iqiyi.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4977
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "tmall.com"
+      ],
+      "initiatorDomains": [
+        "eyusky.net",
+        "iqiyi.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4978
+  },
+  {
+    "condition": {
+      "urlFilter": "||yy18.info^*thanks"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4979
+  },
+  {
+    "condition": {
+      "urlFilter": "||peachring.com/popunder"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4980
+  },
+  {
+    "condition": {
+      "urlFilter": "||dlkoo.cc/down/*.htm"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4981
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "taobao.com"
+      ],
+      "initiatorDomains": [
+        "dlkoo.cc"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4982
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "taobao.com"
+      ],
+      "initiatorDomains": [
+        "dlkoo.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4983
+  },
+  {
+    "condition": {
+      "urlFilter": "?key=",
+      "initiatorDomains": [
+        "verystream.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4984
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "hsvtdj.top",
+        "88p2p.com",
+        "aiwanma99.com",
+        "c.admaster.com.cn",
+        "kuheju.com"
+      ]
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 4985
+  },
+  {
+    "condition": {
+      "initiatorDomains": [
+        "76fengyun.com",
+        "avsdown.com",
+        "downdv.com",
+        "downdvs.com",
+        "downhhh.com",
+        "imedown.info",
+        "jandown.com",
+        "mimima.com",
+        "mnks.jxedt.com",
+        "rmdown.com",
+        "soyunpan.com",
+        "xmflv.com"
+      ],
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5188
+  },
+  {
+    "condition": {
+      "urlFilter": ".189.gd^*.html?p=",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5189
+  },
+  {
+    "condition": {
+      "urlFilter": ".com/?aff=",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5190
+  },
+  {
+    "condition": {
+      "urlFilter": ".com/?intr=",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5191
+  },
+  {
+    "condition": {
+      "urlFilter": "/badwebremindpage.aspx?param=",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5192
+  },
+  {
+    "condition": {
+      "urlFilter": "/hndxweb/push",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5193
+  },
+  {
+    "condition": {
+      "urlFilter": "/pushportal/pushportalserver",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5194
+  },
+  {
+    "condition": {
+      "urlFilter": "/pushstart.aspx?",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5195
+  },
+  {
+    "condition": {
+      "urlFilter": "/pushstart.html?",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5196
+  },
+  {
+    "condition": {
+      "urlFilter": "/tanchuan.htm",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5197
+  },
+  {
+    "condition": {
+      "urlFilter": "||1024wanzhai.",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5198
+  },
+  {
+    "condition": {
+      "urlFilter": "||189.cn/actpush/",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5199
+  },
+  {
+    "condition": {
+      "urlFilter": "||gd.189.cn/ad/",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5200
+  },
+  {
+    "condition": {
+      "urlFilter": "||gd.189.cn/gz/promotion/",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5201
+  },
+  {
+    "condition": {
+      "urlFilter": "||gd.189.cn^*.htm?sp=",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5202
+  },
+  {
+    "condition": {
+      "urlFilter": "||gd.ct10000.com^*/push/",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5203
+  },
+  {
+    "condition": {
+      "urlFilter": "||vnet.cn^*.html?",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5204
+  },
+  {
+    "condition": {
+      "urlFilter": "/cpro.",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5205
+  },
+  {
+    "condition": {
+      "urlFilter": "||haoxianggou.xyz/?from=",
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5206
+  },
+  {
+    "condition": {
+      "requestDomains": [
+        "380.tw",
+        "52av.be",
+        "1024mzs.pw",
+        "b477.life",
+        "csaimall.com",
+        "downmn.com",
+        "downmz.com",
+        "todayapp.tv",
+        "u26u.com",
+        "wy213.com",
+        "xiyouence.com"
+      ],
+      "domainType": "thirdParty"
+    },
+    "action": {
+      "type": "block"
+    },
+    "priority": 10,
+    "id": 5207
+  },
+  {
+    "condition": {
+      "urlFilter": "||doubleclick.net/ddm/trackclk/",
+      "initiatorDomains": [
+        "hongkongcard.com"
+      ]
+    },
+    "action": {
+      "type": "allow"
+    },
+    "priority": 30,
+    "id": 6002
+  },
+  {
+    "condition": {
+      "urlFilter": "||serving-sys.com/serving/adserver.bs?",
+      "initiatorDomains": [
+        "hongkongcard.com"
+      ]
+    },
+    "action": {
+      "type": "allow"
+    },
+    "priority": 30,
+    "id": 6003
+  },
+  {
+    "condition": {
+      "urlFilter": "||dlkoo.cc/down/*/*.htm"
+    },
+    "action": {
+      "type": "allow"
+    },
+    "priority": 30,
+    "id": 6004
+  }
+]
