@@ -3,8 +3,8 @@
 //! Handles CSS element hiding (`##`), cosmetic exceptions (`#@#`), procedural operators
 //! (`:has()`, `:has-text()`, `:xpath()`, `:upward()`), and scriptlet injection filters (`##+js(...)`).
 
-use std::collections::{HashMap, HashSet};
 use serde::{Deserialize, Serialize};
+use std::collections::{HashMap, HashSet};
 
 /// The category of a cosmetic filter.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -14,10 +14,7 @@ pub enum CosmeticKind {
     /// Procedural selector containing operators like `:has()`, `:has-text()`, `:matches-path()`.
     Procedural(String),
     /// Injected scriptlet: `##+js(name, args...)`
-    Scriptlet {
-        name: String,
-        args: Vec<String>,
-    },
+    Scriptlet { name: String, args: Vec<String> },
 }
 
 /// A parsed cosmetic rule.
@@ -33,7 +30,11 @@ impl CosmeticRule {
     /// Checks whether this rule applies to a specific hostname.
     pub fn applies_to(&self, hostname: &str) -> bool {
         // Excluded domains override inclusion: e.g. ~example.com
-        if self.excluded_domains.iter().any(|d| hostname == d || hostname.ends_with(&format!(".{}", d))) {
+        if self
+            .excluded_domains
+            .iter()
+            .any(|d| hostname == d || hostname.ends_with(&format!(".{}", d)))
+        {
             return false;
         }
 
@@ -43,7 +44,9 @@ impl CosmeticRule {
         }
 
         // Check if any included domain matches this hostname or a parent domain
-        self.domains.iter().any(|d| hostname == d || hostname.ends_with(&format!(".{}", d)))
+        self.domains
+            .iter()
+            .any(|d| hostname == d || hostname.ends_with(&format!(".{}", d)))
     }
 }
 
@@ -137,7 +140,10 @@ impl CosmeticEngine {
         if is_exception {
             if let CosmeticKind::PlainCss(ref sel) = kind {
                 for d in &domains {
-                    self.exceptions.entry(d.clone()).or_default().insert(sel.clone());
+                    self.exceptions
+                        .entry(d.clone())
+                        .or_default()
+                        .insert(sel.clone());
                 }
                 return true;
             }
@@ -149,7 +155,10 @@ impl CosmeticEngine {
                     self.generic_css.push(sel.clone());
                 } else {
                     for d in &domains {
-                        self.specific_css.entry(d.clone()).or_default().push(sel.clone());
+                        self.specific_css
+                            .entry(d.clone())
+                            .or_default()
+                            .push(sel.clone());
                     }
                 }
             }
@@ -316,8 +325,12 @@ mod tests {
 
         let res = engine.retrieve("example.com");
         assert_eq!(res.procedural_selectors.len(), 2);
-        assert!(res.procedural_selectors.contains(&"div:has(> .sponsored)".to_string()));
-        assert!(res.procedural_selectors.contains(&"article:has-text(Promoted)".to_string()));
+        assert!(res
+            .procedural_selectors
+            .contains(&"div:has(> .sponsored)".to_string()));
+        assert!(res
+            .procedural_selectors
+            .contains(&"article:has-text(Promoted)".to_string()));
     }
 
     #[test]
