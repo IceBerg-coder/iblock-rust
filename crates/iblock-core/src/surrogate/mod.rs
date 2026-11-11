@@ -19,7 +19,8 @@ impl Surrogate {
     }
 }
 
-pub const EMPTY_GIF_DATA_URI: &str = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+pub const EMPTY_GIF_DATA_URI: &str =
+    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 pub const NOOP_JS: &str = "(() => {})();";
 
 /// Static catalog of common surrogates.
@@ -79,7 +80,9 @@ static SURROGATES: &[Surrogate] = &[
 /// Looks up a surrogate by resource name or alias.
 pub fn lookup(name: &str) -> Option<&'static Surrogate> {
     let clean = name.trim();
-    SURROGATES.iter().find(|s| s.name.eq_ignore_ascii_case(clean))
+    SURROGATES
+        .iter()
+        .find(|s| s.name.eq_ignore_ascii_case(clean))
 }
 
 /// Resolves a surrogate name directly into a Data URI for redirection.
