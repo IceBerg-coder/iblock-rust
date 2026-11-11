@@ -1,7 +1,7 @@
 //! WebAssembly bindings for iBlock content filtering engine.
 
-use wasm_bindgen::prelude::*;
 use iblock_core::{MatchResult, RequestTypes, StaticNetFilteringEngine};
+use wasm_bindgen::prelude::*;
 
 /// Result of evaluating an HTTP request.
 #[wasm_bindgen]
@@ -27,7 +27,9 @@ impl WasmMatchResult {
     /// Resolves the redirection target into a ready-to-use Data URI.
     #[wasm_bindgen(getter, js_name = redirectDataUri)]
     pub fn redirect_data_uri(&self) -> Option<String> {
-        self.redirect.as_deref().and_then(iblock_core::surrogate::resolve_data_uri)
+        self.redirect
+            .as_deref()
+            .and_then(iblock_core::surrogate::resolve_data_uri)
     }
 
     #[wasm_bindgen(js_name = isBlocked)]
@@ -100,7 +102,12 @@ impl WasmEngine {
     /// - `source_domain`: Originating page domain (e.g. "example.com")
     /// - `request_type`: Bitfield of RequestTypes (e.g. 1 for SCRIPT)
     #[wasm_bindgen(js_name = matchRequest)]
-    pub fn match_request(&self, url: &str, source_domain: &str, request_type: u32) -> WasmMatchResult {
+    pub fn match_request(
+        &self,
+        url: &str,
+        source_domain: &str,
+        request_type: u32,
+    ) -> WasmMatchResult {
         let types = RequestTypes::from_bits_truncate(request_type);
         let res = self.inner.match_request(url, source_domain, types);
         match res {
@@ -171,6 +178,12 @@ impl WasmEngine {
     #[wasm_bindgen(js_name = dynamicRuleCount)]
     pub fn dynamic_rule_count(&self) -> u32 {
         self.inner.dynamic_rule_count() as u32
+    }
+}
+
+impl Default for WasmEngine {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
