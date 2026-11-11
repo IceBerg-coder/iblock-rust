@@ -39,7 +39,11 @@ fn main() {
             println!("Loaded {} rules from {}", count, list_path);
 
             let start = Instant::now();
-            let result = engine.match_request(url, source_domain, RequestTypes::SCRIPT | RequestTypes::THIRD_PARTY);
+            let result = engine.match_request(
+                url,
+                source_domain,
+                RequestTypes::SCRIPT | RequestTypes::THIRD_PARTY,
+            );
             let elapsed = start.elapsed();
 
             println!("Matching URL: {}", url);
@@ -75,13 +79,18 @@ fn main() {
             let mut matches = 0;
             for i in 0..100_000 {
                 let url = test_urls[i % test_urls.len()];
-                if engine.match_request(url, "example.com", RequestTypes::SCRIPT) != MatchResult::NoMatch {
+                if engine.match_request(url, "example.com", RequestTypes::SCRIPT)
+                    != MatchResult::NoMatch
+                {
                     matches += 1;
                 }
             }
             let match_elapsed = t1.elapsed();
             println!("100,000 matches finished in {:?}", match_elapsed);
-            println!("Average latency per request: {:.2} ns", (match_elapsed.as_nanos() as f64) / 100_000.0);
+            println!(
+                "Average latency per request: {:.2} ns",
+                (match_elapsed.as_nanos() as f64) / 100_000.0
+            );
             println!("Blocked/Matched: {}/100,000", matches);
         }
         "compile" => {
@@ -96,13 +105,22 @@ fn main() {
             let content = fs::read_to_string(input_path).expect("Failed to read filter list");
             let mut engine = StaticNetFilteringEngine::new();
             let count = engine.load_list(&content);
-            println!("Compiled {} rules. Writing compressed binary cache to: {}", count, output_path);
+            println!(
+                "Compiled {} rules. Writing compressed binary cache to: {}",
+                count, output_path
+            );
 
             let t0 = Instant::now();
-            engine.save_to_file(output_path).expect("Failed to write cache file");
+            engine
+                .save_to_file(output_path)
+                .expect("Failed to write cache file");
             println!("Cache written in {:?}", t0.elapsed());
             let meta = fs::metadata(output_path).expect("Failed to get cache file size");
-            println!("Output cache size: {} bytes ({:.2} KB)", meta.len(), (meta.len() as f64) / 1024.0);
+            println!(
+                "Output cache size: {} bytes ({:.2} KB)",
+                meta.len(),
+                (meta.len() as f64) / 1024.0
+            );
         }
         "load-bench" => {
             if args.len() < 3 {
@@ -112,11 +130,16 @@ fn main() {
             let cache_path = &args[2];
             println!("Hydrating engine from binary cache: {}", cache_path);
             let t0 = Instant::now();
-            let engine = StaticNetFilteringEngine::load_from_file(cache_path).expect("Failed to load cache");
+            let engine =
+                StaticNetFilteringEngine::load_from_file(cache_path).expect("Failed to load cache");
             let elapsed = t0.elapsed();
             println!("Hydrated {} rules in {:?}", engine.rule_count(), elapsed);
 
-            let res = engine.match_request("https://doubleclick.net/ad.js", "example.com", RequestTypes::SCRIPT);
+            let res = engine.match_request(
+                "https://doubleclick.net/ad.js",
+                "example.com",
+                RequestTypes::SCRIPT,
+            );
             println!("Verification match (doubleclick.net): {:?}", res);
         }
         "repl" => {
@@ -128,7 +151,10 @@ fn main() {
             let content = fs::read_to_string(list_path).expect("Failed to read filter list file");
             let mut engine = StaticNetFilteringEngine::new();
             let count = engine.load_list(&content);
-            println!("Loaded {} rules. Enter URLs to test (type 'exit' to quit):", count);
+            println!(
+                "Loaded {} rules. Enter URLs to test (type 'exit' to quit):",
+                count
+            );
 
             let stdin = io::stdin();
             for line in stdin.lock().lines() {
@@ -140,7 +166,11 @@ fn main() {
                 if trimmed.is_empty() {
                     continue;
                 }
-                let res = engine.match_request(trimmed, "example.com", RequestTypes::SCRIPT | RequestTypes::THIRD_PARTY);
+                let res = engine.match_request(
+                    trimmed,
+                    "example.com",
+                    RequestTypes::SCRIPT | RequestTypes::THIRD_PARTY,
+                );
                 println!("-> {:?}", res);
             }
         }

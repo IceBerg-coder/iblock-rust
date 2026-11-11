@@ -101,7 +101,9 @@ impl BidiTrieContainer {
                         if ai + rem > a_len {
                             return None;
                         }
-                        if self.chars[seg_offset + 1..seg_offset + seg_len] != haystack[ai..ai + rem] {
+                        if self.chars[seg_offset + 1..seg_offset + seg_len]
+                            != haystack[ai..ai + rem]
+                        {
                             return None;
                         }
                         ai += rem;

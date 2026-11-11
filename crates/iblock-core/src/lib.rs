@@ -22,5 +22,7 @@ pub use dynamic::{DynamicAction, DynamicFirewall, DynamicRule, DynamicType};
 pub use engine::{MatchResult, RequestContext, StaticNetFilteringEngine};
 pub use filter::{FilterAction, NetworkRule, PatternKind, RequestTypes};
 pub use parser::{parse_line, ParsedLine};
-pub use surrogate::{lookup as lookup_surrogate, resolve_data_uri as resolve_surrogate_data_uri, Surrogate};
+pub use surrogate::{
+    lookup as lookup_surrogate, resolve_data_uri as resolve_surrogate_data_uri, Surrogate,
+};
 pub use trie::{BidiTrie, BidiTrieContainer, HNTrie, HNTrieContainer};

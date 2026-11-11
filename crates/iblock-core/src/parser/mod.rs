@@ -52,22 +52,24 @@ fn parse_network_rule(line: &str) -> Option<NetworkRule> {
     }
 
     // Parse pattern kind
-    let pattern = if pattern_str.starts_with("||") {
-        let domain_part = &pattern_str[2..];
+    let pattern = if let Some(domain_part) = pattern_str.strip_prefix("||") {
         if let Some(slash_idx) = domain_part.find('/') {
             let domain = domain_part[..slash_idx].trim_end_matches('^').to_string();
             let path = domain_part[slash_idx..].trim_end_matches('^').to_string();
             PatternKind::DomainAnchor { domain, path }
         } else {
             let domain = domain_part.trim_end_matches('^').to_string();
-            PatternKind::DomainAnchor { domain, path: String::new() }
+            PatternKind::DomainAnchor {
+                domain,
+                path: String::new(),
+            }
         }
     } else if pattern_str.starts_with('|') && pattern_str.ends_with('|') && pattern_str.len() > 1 {
         PatternKind::Exact(pattern_str[1..pattern_str.len() - 1].to_string())
-    } else if pattern_str.starts_with('|') {
-        PatternKind::LeftAnchor(pattern_str[1..].to_string())
-    } else if pattern_str.ends_with('|') {
-        PatternKind::RightAnchor(pattern_str[..pattern_str.len() - 1].to_string())
+    } else if let Some(rest) = pattern_str.strip_prefix('|') {
+        PatternKind::LeftAnchor(rest.to_string())
+    } else if let Some(rest) = pattern_str.strip_suffix('|') {
+        PatternKind::RightAnchor(rest.to_string())
     } else if pattern_str.starts_with('/') && pattern_str.ends_with('/') && pattern_str.len() > 1 {
         PatternKind::Regex(pattern_str[1..pattern_str.len() - 1].to_string())
     } else {
@@ -205,7 +207,8 @@ mod tests {
 
     #[test]
     fn test_parse_redirect_rule() {
-        let line = "||google-analytics.com/analytics.js$script,redirect=google-analytics_analytics.js";
+        let line =
+            "||google-analytics.com/analytics.js$script,redirect=google-analytics_analytics.js";
         let parsed = parse_line(line);
         if let ParsedLine::Network(rule) = parsed {
             assert_eq!(

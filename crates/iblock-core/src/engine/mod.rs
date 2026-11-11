@@ -93,7 +93,11 @@ impl StaticNetFilteringEngine {
             && rule.excluded_types.is_empty();
 
         if is_pure_domain {
-            if let PatternKind::DomainAnchor { ref domain, ref path } = rule.pattern {
+            if let PatternKind::DomainAnchor {
+                ref domain,
+                ref path,
+            } = rule.pattern
+            {
                 if path.is_empty() {
                     if rule.is_exception() {
                         self.domain_whitelist_trie.add(domain);
@@ -125,7 +129,10 @@ impl StaticNetFilteringEngine {
             url
         };
 
-        let host_part = without_proto.split(&['/', '?', ':', '#'][..]).next().unwrap_or(without_proto);
+        let host_part = without_proto
+            .split(&['/', '?', ':', '#'][..])
+            .next()
+            .unwrap_or(without_proto);
         host_part
     }
 
@@ -138,7 +145,12 @@ impl StaticNetFilteringEngine {
     }
 
     /// Evaluates an incoming network request.
-    pub fn match_request(&self, url: &str, source_domain: &str, request_type: RequestTypes) -> MatchResult {
+    pub fn match_request(
+        &self,
+        url: &str,
+        source_domain: &str,
+        request_type: RequestTypes,
+    ) -> MatchResult {
         let hostname = Self::extract_hostname(url);
         let is_third_party = Self::is_third_party(hostname, source_domain);
 
@@ -167,7 +179,10 @@ impl StaticNetFilteringEngine {
             DynamicType::Any
         };
 
-        if let Some(action) = self.dynamic_firewall.evaluate(source_domain, hostname, dynamic_type) {
+        if let Some(action) = self
+            .dynamic_firewall
+            .evaluate(source_domain, hostname, dynamic_type)
+        {
             match action {
                 DynamicAction::Block => return MatchResult::Block,
                 DynamicAction::Allow => return MatchResult::Allow,
@@ -234,13 +249,19 @@ impl StaticNetFilteringEngine {
 
         // Domain constraints check
         if !rule.included_domains.is_empty() {
-            let hit = rule.included_domains.iter().any(|d| ctx.source_domain.ends_with(d));
+            let hit = rule
+                .included_domains
+                .iter()
+                .any(|d| ctx.source_domain.ends_with(d));
             if !hit {
                 return false;
             }
         }
         if !rule.excluded_domains.is_empty() {
-            let hit = rule.excluded_domains.iter().any(|d| ctx.source_domain.ends_with(d));
+            let hit = rule
+                .excluded_domains
+                .iter()
+                .any(|d| ctx.source_domain.ends_with(d));
             if hit {
                 return false;
             }
@@ -249,7 +270,8 @@ impl StaticNetFilteringEngine {
         // Pattern matching
         match &rule.pattern {
             PatternKind::DomainAnchor { domain, path } => {
-                let domain_matched = ctx.hostname == domain || ctx.hostname.ends_with(&format!(".{}", domain));
+                let domain_matched =
+                    ctx.hostname == domain || ctx.hostname.ends_with(&format!(".{}", domain));
                 if !domain_matched {
                     return false;
                 }
@@ -345,19 +367,35 @@ mod tests {
         engine.load_list(list);
 
         assert_eq!(
-            engine.match_request("https://doubleclick.net/ad.js", "example.com", RequestTypes::SCRIPT),
+            engine.match_request(
+                "https://doubleclick.net/ad.js",
+                "example.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Block
         );
         assert_eq!(
-            engine.match_request("https://sub.doubleclick.net/pixel.gif", "example.com", RequestTypes::IMAGE),
+            engine.match_request(
+                "https://sub.doubleclick.net/pixel.gif",
+                "example.com",
+                RequestTypes::IMAGE
+            ),
             MatchResult::Block
         );
         assert_eq!(
-            engine.match_request("https://allowed.tracker.org/script.js", "example.com", RequestTypes::SCRIPT),
+            engine.match_request(
+                "https://allowed.tracker.org/script.js",
+                "example.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Allow
         );
         assert_eq!(
-            engine.match_request("https://wikipedia.org/wiki/Main_Page", "wikipedia.org", RequestTypes::SUBDOCUMENT),
+            engine.match_request(
+                "https://wikipedia.org/wiki/Main_Page",
+                "wikipedia.org",
+                RequestTypes::SUBDOCUMENT
+            ),
             MatchResult::NoMatch
         );
     }
@@ -373,25 +411,41 @@ mod tests {
 
         // 3rd-party script -> BLOCK
         assert_eq!(
-            engine.match_request("https://cdn.adservice.com/lib.js", "myblog.com", RequestTypes::SCRIPT),
+            engine.match_request(
+                "https://cdn.adservice.com/lib.js",
+                "myblog.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Block
         );
 
         // 3rd-party image -> NO MATCH (rule requires script)
         assert_eq!(
-            engine.match_request("https://cdn.adservice.com/img.jpg", "myblog.com", RequestTypes::IMAGE),
+            engine.match_request(
+                "https://cdn.adservice.com/img.jpg",
+                "myblog.com",
+                RequestTypes::IMAGE
+            ),
             MatchResult::NoMatch
         );
 
         // 1st-party script -> NO MATCH (rule requires 3rd-party)
         assert_eq!(
-            engine.match_request("https://cdn.adservice.com/lib.js", "adservice.com", RequestTypes::SCRIPT),
+            engine.match_request(
+                "https://cdn.adservice.com/lib.js",
+                "adservice.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::NoMatch
         );
 
         // 1st-party stats -> BLOCK
         assert_eq!(
-            engine.match_request("https://stats.site.com/track", "site.com", RequestTypes::XMLHTTPREQUEST),
+            engine.match_request(
+                "https://stats.site.com/track",
+                "site.com",
+                RequestTypes::XMLHTTPREQUEST
+            ),
             MatchResult::Block
         );
     }
@@ -399,11 +453,16 @@ mod tests {
     #[test]
     fn test_engine_redirect_shim() {
         let mut engine = StaticNetFilteringEngine::new();
-        let list = "||google-analytics.com/analytics.js$script,redirect=google-analytics_analytics.js";
+        let list =
+            "||google-analytics.com/analytics.js$script,redirect=google-analytics_analytics.js";
         engine.load_list(list);
 
         assert_eq!(
-            engine.match_request("https://google-analytics.com/analytics.js", "example.com", RequestTypes::SCRIPT),
+            engine.match_request(
+                "https://google-analytics.com/analytics.js",
+                "example.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Redirect("google-analytics_analytics.js".to_string())
         );
     }
@@ -431,19 +490,35 @@ mod tests {
 
         // Verify decisions are identical
         assert_eq!(
-            restored.match_request("https://doubleclick.net/ad.js", "example.com", RequestTypes::SCRIPT),
+            restored.match_request(
+                "https://doubleclick.net/ad.js",
+                "example.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Block
         );
         assert_eq!(
-            restored.match_request("https://allowed.tracker.org/script.js", "example.com", RequestTypes::SCRIPT),
+            restored.match_request(
+                "https://allowed.tracker.org/script.js",
+                "example.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Allow
         );
         assert_eq!(
-            restored.match_request("https://google-analytics.com/analytics.js", "example.com", RequestTypes::SCRIPT),
+            restored.match_request(
+                "https://google-analytics.com/analytics.js",
+                "example.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Redirect("google-analytics_analytics.js".to_string())
         );
         assert_eq!(
-            restored.match_request("https://wikipedia.org", "wikipedia.org", RequestTypes::SUBDOCUMENT),
+            restored.match_request(
+                "https://wikipedia.org",
+                "wikipedia.org",
+                RequestTypes::SUBDOCUMENT
+            ),
             MatchResult::NoMatch
         );
     }
@@ -461,13 +536,21 @@ mod tests {
 
         // 3p script from other host -> blocked by dynamic rule
         assert_eq!(
-            engine.match_request("https://cdn.safe-site.com/app.js", "other.com", RequestTypes::SCRIPT),
+            engine.match_request(
+                "https://cdn.safe-site.com/app.js",
+                "other.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Block
         );
 
         // 3p script from local override -> allowed by local dynamic rule
         assert_eq!(
-            engine.match_request("https://cdn.safe-site.com/app.js", "example.com", RequestTypes::SCRIPT),
+            engine.match_request(
+                "https://cdn.safe-site.com/app.js",
+                "example.com",
+                RequestTypes::SCRIPT
+            ),
             MatchResult::Allow
         );
     }

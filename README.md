@@ -130,23 +130,34 @@ make extension
 
 ## 🛠️ CLI Usage (`iblock-cli`)
 
-The repository includes a standalone CLI tool for benchmarking, testing, and compiling filter lists offline:
+The repository includes a standalone CLI tool for benchmarking, testing, and compiling filter lists offline. Arguments are positional:
+
+```
+iblock-cli audit <filter_list_file> <url> [source_domain]
+iblock-cli bench <filter_list_file>
+iblock-cli compile <filter_list_file> <output_cache_file>
+iblock-cli load-bench <cache_file>
+iblock-cli repl <filter_list_file>
+```
 
 ```bash
-# Check if a URL matches against a filter list
-cargo run -p iblock-cli -- match \
-  --rules "||doubleclick.net^" \
-  --url "https://doubleclick.net/ad.js" \
-  --source "https://news.ycombinator.com" \
-  --type script
+# Check whether a URL is blocked by a filter list
+# (optional third argument is the source/page domain; defaults to example.com)
+cargo run -p iblock-cli -- audit path/to/filters.txt \
+  https://doubleclick.net/ad.js \
+  news.ycombinator.com
 
-# Run performance benchmarks on 1,000,000 matches
-cargo run -p iblock-cli --release -- bench --rules path/to/easylist.txt
+# Run performance benchmarks (list load + 100,000 lookups)
+cargo run -p iblock-cli --release -- bench path/to/easylist.txt
 
-# Compile text filter lists into an optimized binary snapshot
-cargo run -p iblock-cli -- compile \
-  --rules path/to/easylist.txt \
-  --out dist/easylist.bin
+# Compile a text filter list into a compressed binary cache
+cargo run -p iblock-cli -- compile path/to/easylist.txt dist/easylist.bin
+
+# Hydrate the engine from a previously compiled cache and verify a match
+cargo run -p iblock-cli -- load-bench dist/easylist.bin
+
+# Interactive matcher: enter URLs, then type exit or quit
+cargo run -p iblock-cli -- repl path/to/filters.txt
 ```
 
 ---

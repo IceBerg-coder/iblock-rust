@@ -4,8 +4,8 @@
 //! Supports global (`*`) and per-site rules across resource types (`3p-script`, `3p-frame`,
 //! `image`, `inline-script`), with `block`, `allow`, and `noop` actions.
 
-use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 /// Dynamic filtering action.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -65,7 +65,13 @@ impl DynamicFirewall {
     }
 
     /// Adds a rule: `add_rule("example.com", "google.com", DynamicType::ThirdPartyScript, DynamicAction::Block)`.
-    pub fn add_rule(&mut self, source: &str, target: &str, dtype: DynamicType, action: DynamicAction) {
+    pub fn add_rule(
+        &mut self,
+        source: &str,
+        target: &str,
+        dtype: DynamicType,
+        action: DynamicAction,
+    ) {
         let key = (source.to_lowercase(), target.to_lowercase(), dtype);
         if self.rules.insert(key, action).is_none() {
             self.rule_count += 1;
@@ -104,8 +110,14 @@ impl DynamicFirewall {
     /// 2. `(source, *)`
     /// 3. `(*, target)`
     /// 4. `(*, *)`
+    ///
     /// At each scope level, specific type precedes `DynamicType::Any`.
-    pub fn evaluate(&self, source_domain: &str, target_domain: &str, dtype: DynamicType) -> Option<DynamicAction> {
+    pub fn evaluate(
+        &self,
+        source_domain: &str,
+        target_domain: &str,
+        dtype: DynamicType,
+    ) -> Option<DynamicAction> {
         let scopes = [
             (source_domain, target_domain),
             (source_domain, "*"),
@@ -188,7 +200,11 @@ mod tests {
         firewall.add_rule_line("example.com cdnjs.cloudflare.com * noop");
 
         assert_eq!(
-            firewall.evaluate("example.com", "cdnjs.cloudflare.com", DynamicType::ThirdPartyScript),
+            firewall.evaluate(
+                "example.com",
+                "cdnjs.cloudflare.com",
+                DynamicType::ThirdPartyScript
+            ),
             Some(DynamicAction::Noop)
         );
     }

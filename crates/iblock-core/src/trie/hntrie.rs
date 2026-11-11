@@ -103,7 +103,14 @@ impl HNTrieContainer {
     }
 
     /// Allocates a new intermediate cell.
-    fn alloc_cell(&mut self, sibling: u32, child: u32, char_offset: usize, len: usize, boundary: bool) -> u32 {
+    fn alloc_cell(
+        &mut self,
+        sibling: u32,
+        child: u32,
+        char_offset: usize,
+        len: usize,
+        boundary: bool,
+    ) -> u32 {
         let idx = self.cells.len() as u32;
         let boundary_bit = if boundary { 0x80 } else { 0x00 };
         let info = ((char_offset as u32) << 8) | boundary_bit | (len as u32 & 0x7F);
@@ -200,7 +207,8 @@ impl HNTrieContainer {
                 let old_child = self.cells[icell as usize].child;
 
                 // Update current cell to hold the matched prefix
-                self.cells[icell as usize].info = ((seg_offset as u32) << 8) | (seg_match as u32 & 0x7F);
+                self.cells[icell as usize].info =
+                    ((seg_offset as u32) << 8) | (seg_match as u32 & 0x7F);
 
                 // Allocate intermediate cell for the remainder of the original segment
                 let split_cell = self.alloc_cell(
@@ -284,10 +292,8 @@ impl HNTrieContainer {
             }
 
             // Boundary check: is this a valid domain termination?
-            if (v & 0x80) != 0 {
-                if ineedle == 0 || bytes[ineedle - 1] == b'.' {
-                    return Some(ineedle);
-                }
+            if (v & 0x80) != 0 && (ineedle == 0 || bytes[ineedle - 1] == b'.') {
+                return Some(ineedle);
             }
 
             // Advance to next segment (subdomain continuation)
@@ -326,17 +332,6 @@ impl HNTrie {
         }
     }
 
-    pub fn from_iter<'a, I>(iter: I) -> Self
-    where
-        I: IntoIterator<Item = &'a str>,
-    {
-        let mut trie = Self::new();
-        for hn in iter {
-            trie.add(hn);
-        }
-        trie
-    }
-
     pub fn add(&mut self, hostname: &str) -> bool {
         let res = self.container.add(self.root, hostname);
         if res == 1 {
@@ -349,7 +344,9 @@ impl HNTrie {
 
     #[inline(always)]
     pub fn matches<'a>(&self, hostname: &'a str) -> Option<&'a str> {
-        self.container.matches(self.root, hostname).map(|idx| &hostname[idx..])
+        self.container
+            .matches(self.root, hostname)
+            .map(|idx| &hostname[idx..])
     }
 
     #[inline(always)]
@@ -365,6 +362,16 @@ impl HNTrie {
     #[inline(always)]
     pub fn is_empty(&self) -> bool {
         self.count == 0
+    }
+}
+
+impl<'a> FromIterator<&'a str> for HNTrie {
+    fn from_iter<I: IntoIterator<Item = &'a str>>(iter: I) -> Self {
+        let mut trie = Self::new();
+        for hn in iter {
+            trie.add(hn);
+        }
+        trie
     }
 }
 
@@ -394,7 +401,10 @@ mod tests {
         assert_eq!(trie.matches("ads.example.com"), Some("example.com"));
 
         assert!(trie.contains("a.b.c.doubleclick.net"));
-        assert_eq!(trie.matches("a.b.c.doubleclick.net"), Some("doubleclick.net"));
+        assert_eq!(
+            trie.matches("a.b.c.doubleclick.net"),
+            Some("doubleclick.net")
+        );
 
         // Partial match that is NOT a subdomain should NOT match
         assert!(!trie.contains("notexample.com"));
